@@ -1,0 +1,11 @@
+D:\CSharp\GSMWeb\GSMWeb.Core\bin\Debug\net9.0\GSMWeb.Core.deps.json
+D:\CSharp\GSMWeb\GSMWeb.Core\bin\Debug\net9.0\GSMWeb.Core.dll
+D:\CSharp\GSMWeb\GSMWeb.Core\bin\Debug\net9.0\GSMWeb.Core.pdb
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\GSMWeb.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\GSMWeb.Core.AssemblyInfoInputs.cache
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\GSMWeb.Core.AssemblyInfo.cs
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\GSMWeb.Core.csproj.CoreCompileInputs.cache
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\GSMWeb.Core.dll
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\refint\GSMWeb.Core.dll
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\GSMWeb.Core.pdb
+D:\CSharp\GSMWeb\GSMWeb.Core\obj\Debug\net9.0\ref\GSMWeb.Core.dll

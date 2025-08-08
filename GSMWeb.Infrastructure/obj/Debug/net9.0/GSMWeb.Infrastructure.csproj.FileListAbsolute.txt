@@ -1,0 +1,17 @@
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\bin\Debug\net9.0\GSMWeb.Infrastructure.deps.json
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\bin\Debug\net9.0\GSMWeb.Infrastructure.runtimeconfig.json
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\bin\Debug\net9.0\GSMWeb.Infrastructure.dll
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\bin\Debug\net9.0\GSMWeb.Infrastructure.pdb
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\bin\Debug\net9.0\GSMWeb.Core.dll
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\bin\Debug\net9.0\GSMWeb.Core.pdb
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.csproj.AssemblyReference.cache
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.AssemblyInfoInputs.cache
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.AssemblyInfo.cs
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.csproj.CoreCompileInputs.cache
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.I.F1BE07AF.Up2Date
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.dll
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\refint\GSMWeb.Infrastructure.dll
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.pdb
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.genruntimeconfig.cache
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\ref\GSMWeb.Infrastructure.dll
