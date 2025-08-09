@@ -15,3 +15,4 @@ D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\refint\GSMWeb.Infrastruc
 D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.pdb
 D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.genruntimeconfig.cache
 D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\ref\GSMWeb.Infrastructure.dll
+D:\CSharp\GSMWeb\GSMWeb.Infrastructure\obj\Debug\net9.0\GSMWeb.Infrastructure.sourcelink.json

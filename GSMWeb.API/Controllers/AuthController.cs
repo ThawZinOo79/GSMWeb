@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using GSMWeb.API.DTOs;
 using GSMWeb.Core.Entities;
 using GSMWeb.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GSMWeb.API.Controllers
@@ -30,13 +32,10 @@ namespace GSMWeb.API.Controllers
                 Email = registerDto.Email,
                 PhoneNumber = registerDto.PhoneNumber,
                 Role = registerDto.Role,
-                Password = registerDto.Password // Set required Password property
+                Password = registerDto.Password
             };
 
             var createdUser = await _authService.RegisterAsync(user, registerDto.Password);
-
-            // Avoid returning the full user object with the hashed password
-            // You can create a UserDto for this response if needed
             return Ok(new { UserId = createdUser.Id, createdUser.Email });
         }
 
@@ -48,14 +47,45 @@ namespace GSMWeb.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var token = await _authService.LoginAsync(loginDto.Email, loginDto.Password);
+            // The service now returns a tuple
+            var (isSuccess, message, jwtToken, refreshToken) = await _authService.LoginAsync(loginDto.Email, loginDto.Password);
 
-            if (token == null)
+            if (!isSuccess)
             {
-                return Unauthorized("Invalid credentials.");
+                // Return an unauthorized response with the failure message
+                return Unauthorized(new AuthResponseDto { Message = message, IsSuccess = false });
             }
 
-            return Ok(new { Token = token });
+            // Return a 200 OK response with the success message and tokens
+            return Ok(new AuthResponseDto
+            {
+                Message = message,
+                Token = jwtToken,
+                RefreshToken = refreshToken,
+                IsSuccess = true
+            });
+        }
+
+        [HttpPost("logout")]
+        [Authorize] // IMPORTANT: This endpoint requires a valid JWT
+        public async Task<IActionResult> Logout()
+        {
+            // Get the user's ID from the claims in their JWT token
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!int.TryParse(userIdString, out var userId))
+            {
+                return BadRequest("Invalid token.");
+            }
+
+            var (isSuccess, message) = await _authService.LogoutAsync(userId);
+
+            if (!isSuccess)
+            {
+                return BadRequest(new { Message = message });
+            }
+
+            return Ok(new { Message = message });
         }
     }
 }

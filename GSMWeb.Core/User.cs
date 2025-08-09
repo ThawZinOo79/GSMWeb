@@ -4,9 +4,12 @@ namespace GSMWeb.Core.Entities
     {
         public required string Name { get; set; }
         public required string Email { get; set; }
-        public required string Password { get; set; } // IMPORTANT: This will be a hashed password, not plain text.
+        public required string Password { get; set; }
         public string? PhoneNumber { get; set; }
-        public required string Role { get; set; }
-        public bool IsActive { get; set; } = false;
+        public required string Role { get; set; } 
+        public bool IsActive { get; set; } = false; 
+
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
     }
 }
