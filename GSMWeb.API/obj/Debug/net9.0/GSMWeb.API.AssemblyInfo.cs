@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GSMWeb.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c114c0db01c788a107dab18d0d6ca27411ca0a7c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98fa4dc043fc334f879c90f481771e54e8c135f4")]
 [assembly: System.Reflection.AssemblyProductAttribute("GSMWeb.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GSMWeb.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
