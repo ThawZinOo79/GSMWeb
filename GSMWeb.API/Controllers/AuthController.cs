@@ -19,24 +19,15 @@ namespace GSMWeb.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        public async Task<IActionResult> Register([FromBody] User user, [FromQuery] string password)
         {
-            if (!ModelState.IsValid)
+            if (user == null || string.IsNullOrEmpty(password))
             {
-                return BadRequest(ModelState);
+                return BadRequest("User data and password are required.");
             }
 
-            var user = new User
-            {
-                Name = registerDto.Name,
-                Email = registerDto.Email,
-                PhoneNumber = registerDto.PhoneNumber,
-                Role = registerDto.Role,
-                Password = registerDto.Password
-            };
-
-            var createdUser = await _authService.RegisterAsync(user, registerDto.Password);
-            return Ok(new { UserId = createdUser.Id, createdUser.Email });
+            var createdUser = await _authService.RegisterAsync(user, password);
+            return Ok(new { UserId = createdUser.Id, Email = createdUser.Email, Message = "Registration successful." });
         }
 
         [HttpPost("login")]
@@ -47,7 +38,6 @@ namespace GSMWeb.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            // The service now returns a tuple
             var (isSuccess, message, jwtToken, refreshToken) = await _authService.LoginAsync(loginDto.Email, loginDto.Password);
 
             if (!isSuccess)

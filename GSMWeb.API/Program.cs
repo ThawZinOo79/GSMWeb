@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using GSMWeb.Core.Interfaces;
 using GSMWeb.Infrastructure.Services;
+using GSMWeb.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -18,6 +19,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Register the AuthService
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // 3. Configure JWT Authentication
 builder.Services.AddAuthentication(options =>

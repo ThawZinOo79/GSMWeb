@@ -7,36 +7,34 @@ using GSMWeb.Core.Interfaces;
 using GSMWeb.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GSMWeb.Infrastructure.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        public AuthService(ApplicationDbContext context, IConfiguration configuration)
+        // Constructor now takes the repository interface
+        public AuthService(IUserRepository userRepository, IConfiguration configuration)
         {
-            _context = context;
+            _userRepository = userRepository;
             _configuration = configuration;
         }
-
 
         public async Task<User> RegisterAsync(User user, string password)
         {
             user.Password = BCrypt.Net.BCrypt.HashPassword(password);
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
+            await _userRepository.AddAsync(user);
+            await _userRepository.SaveChangesAsync();
             return user;
         }
 
         public async Task<(bool IsSuccess, string Message, string? JwtToken, string? RefreshToken)> LoginAsync(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            // Use the repository to get the user
+            var user = await _userRepository.GetUserByEmailAsync(email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
@@ -48,7 +46,6 @@ namespace GSMWeb.Infrastructure.Services
                 return (false, "This account is already logged in elsewhere.", null, null);
             }
 
-            // If login is successful, set user to active
             user.IsActive = true;
 
             var jwtToken = GenerateJwtToken(user);
@@ -57,32 +54,30 @@ namespace GSMWeb.Infrastructure.Services
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
-            // Save the new IsActive state and tokens to the database
-            await _context.SaveChangesAsync();
+            _userRepository.Update(user); // Mark user as updated
+            await _userRepository.SaveChangesAsync(); // Save all changes
 
             return (true, "Login Successfully!", jwtToken, refreshToken);
         }
 
         public async Task<(bool IsSuccess, string Message)> LogoutAsync(int userId)
         {
-            var user = await _context.Users.FindAsync(userId);
+            var user = await _userRepository.GetByIdAsync(userId);
 
             if (user == null)
             {
-                // This case should be rare since we get the ID from a valid token
                 return (false, "User not found.");
             }
 
-            // Set user to inactive and clear their session data
             user.IsActive = false;
             user.RefreshToken = null;
             user.RefreshTokenExpiryTime = null;
 
-            await _context.SaveChangesAsync();
+            _userRepository.Update(user);
+            await _userRepository.SaveChangesAsync();
 
             return (true, "Logout successful.");
         }
-
         // Helper methods 
         private string GenerateJwtToken(User user)
         {

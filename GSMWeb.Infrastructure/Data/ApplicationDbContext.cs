@@ -14,7 +14,6 @@ namespace GSMWeb.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // You can add entity configurations here in the future
         }
     }
 }
