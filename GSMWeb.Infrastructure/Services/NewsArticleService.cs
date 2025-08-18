@@ -46,7 +46,6 @@ namespace GSMWeb.Infrastructure.Services
             var existingArticle = await _newsRepository.GetByIdAsync(article.Id);
             if (existingArticle == null) return false;
 
-            // Map updated properties
             existingArticle.Title = article.Title;
             existingArticle.Summary = article.Summary;
             existingArticle.ContentBody = article.ContentBody;

@@ -16,7 +16,6 @@ namespace GSMWeb.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        // Constructor now takes the repository interface
         public AuthService(IUserRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
@@ -33,7 +32,6 @@ namespace GSMWeb.Infrastructure.Services
 
         public async Task<(bool IsSuccess, string Message, string? JwtToken, string? RefreshToken)> LoginAsync(string email, string password)
         {
-            // Use the repository to get the user
             var user = await _userRepository.GetUserByEmailAsync(email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
@@ -54,8 +52,8 @@ namespace GSMWeb.Infrastructure.Services
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
-            _userRepository.Update(user); // Mark user as updated
-            await _userRepository.SaveChangesAsync(); // Save all changes
+            _userRepository.Update(user); 
+            await _userRepository.SaveChangesAsync(); 
 
             return (true, "Login Successfully!", jwtToken, refreshToken);
         }

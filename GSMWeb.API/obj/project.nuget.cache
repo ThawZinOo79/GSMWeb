@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JZ4+DsCqOi0=",
+  "dgSpecHash": "JcU9dGMSNhA=",
   "success": true,
-  "projectFilePath": "D:\\CSharp\\GSMWeb\\GSMWeb.APi\\GSMWeb.API.csproj",
+  "projectFilePath": "D:\\CSharp\\GSMWeb\\gsmweb.api\\GSMWeb.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Toshiba\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Toshiba\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

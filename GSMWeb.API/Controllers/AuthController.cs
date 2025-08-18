@@ -19,14 +19,21 @@ namespace GSMWeb.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] User user, [FromQuery] string password)
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            if (user == null || string.IsNullOrEmpty(password))
+            if (!ModelState.IsValid)
             {
-                return BadRequest("User data and password are required.");
+                return BadRequest(ModelState);
             }
+            var user = new User
+            {
+                Name = registerDto.Name,
+                Email = registerDto.Email,
+                PhoneNumber = registerDto.PhoneNumber,
+                Role = registerDto.Role
+            };
 
-            var createdUser = await _authService.RegisterAsync(user, password);
+            var createdUser = await _authService.RegisterAsync(user, registerDto.Password);
             return Ok(new { UserId = createdUser.Id, Email = createdUser.Email, Message = "Registration successful." });
         }
 
@@ -42,11 +49,9 @@ namespace GSMWeb.API.Controllers
 
             if (!isSuccess)
             {
-                // Return an unauthorized response with the failure message
                 return Unauthorized(new AuthResponseDto { Message = message, IsSuccess = false });
             }
 
-            // Return a 200 OK response with the success message and tokens
             return Ok(new AuthResponseDto
             {
                 Message = message,
@@ -57,10 +62,9 @@ namespace GSMWeb.API.Controllers
         }
 
         [HttpPost("logout")]
-        [Authorize] // IMPORTANT: This endpoint requires a valid JWT
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
-            // Get the user's ID from the claims in their JWT token
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!int.TryParse(userIdString, out var userId))

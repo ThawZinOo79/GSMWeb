@@ -17,8 +17,6 @@ namespace GSMWeb.API.Controllers
             _newsService = newsService;
         }
 
-        // GET: api/news
-        // Public endpoint for everyone to see published news
         [HttpGet]
         public async Task<IActionResult> GetPublishedNews()
         {
@@ -26,8 +24,6 @@ namespace GSMWeb.API.Controllers
             return Ok(articles);
         }
 
-        // GET: api/news/{id}
-        // Public endpoint to get a single article
         [HttpGet("{id}")]
         public async Task<IActionResult> GetNewsById(int id)
         {
@@ -39,8 +35,6 @@ namespace GSMWeb.API.Controllers
             return Ok(article);
         }
 
-        // POST: api/news
-        // Protected endpoint for creating news articles
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateNewsArticle([FromBody] NewsArticle newsArticle)
@@ -54,8 +48,6 @@ namespace GSMWeb.API.Controllers
             return CreatedAtAction(nameof(GetNewsById), new { id = createdArticle.Id }, createdArticle);
         }
 
-        // PUT: api/news/{id}
-        // Protected endpoint for updating news articles
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateNewsArticle(int id, [FromBody] NewsArticle newsArticle)
@@ -70,11 +62,9 @@ namespace GSMWeb.API.Controllers
             {
                 return NotFound();
             }
-            return NoContent(); // Success
+            return NoContent();
         }
 
-        // DELETE: api/news/{id}
-        // Protected endpoint for deleting news articles
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteNewsArticle(int id)
@@ -84,7 +74,7 @@ namespace GSMWeb.API.Controllers
             {
                 return NotFound();
             }
-            return NoContent(); // Success
+            return NoContent();
         }
     }
 }
