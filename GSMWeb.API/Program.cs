@@ -8,6 +8,20 @@ using GSMWeb.Infrastructure.Services;
 using GSMWeb.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// var MyAllowedOrigins = "_myAllowedOrigins";
+
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy(name: MyAllowedOrigins,
+//                       policy =>
+//                       {
+//                           policy.WithOrigins("http://localhost:5173") // Your React app's URL
+//                                 .AllowAnyHeader()
+//                                 .AllowAnyMethod();
+//                       });
+// });
+
 var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
@@ -53,6 +67,8 @@ builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+// app.UseCors(MyAllowedOrigins);
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -1,4 +1,6 @@
+using GSMWeb.API.DTOs;
 using GSMWeb.Core.Entities;
+using GSMWeb.Core.Helpers;
 using GSMWeb.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +20,20 @@ namespace GSMWeb.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPublishedNews()
+        public async Task<IActionResult> GetPublishedNews(
+            [FromQuery] PagingParameters pagingParams, [FromQuery] string? searchTerm)
         {
-            var articles = await _newsService.GetAllPublishedArticlesAsync();
-            return Ok(articles);
-        }
+            var (articles, totalCount) = await _newsService.GetPaginatedPublishedArticlesAsync(pagingParams, searchTerm);
 
+            var pagedResult = new PagedResult<NewsArticle>(
+                articles.ToList(),
+                pagingParams.PageNumber,
+                pagingParams.PageSize,
+                totalCount
+            );
+
+            return Ok(pagedResult);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetNewsById(int id)
         {

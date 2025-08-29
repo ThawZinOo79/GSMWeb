@@ -1,4 +1,5 @@
 using GSMWeb.Core.Entities;
+using GSMWeb.Core.Helpers;
 using GSMWeb.Core.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -32,9 +33,10 @@ namespace GSMWeb.Infrastructure.Services
             return true;
         }
 
-        public async Task<IEnumerable<Location>> GetAllLocationsAsync()
+        public async Task<(IEnumerable<Location> Locations, int TotalCount)> GetPaginatedLocationsAsync(
+            PagingParameters pagingParams, string? searchTerm)
         {
-            return await _locationRepository.GetAllAsync();
+            return await _locationRepository.GetPaginatedAndSearchedAsync(pagingParams, searchTerm);
         }
 
         public async Task<Location?> GetLocationByIdAsync(int id)
@@ -53,7 +55,7 @@ namespace GSMWeb.Infrastructure.Services
             existingLocation.Phone = updatedLocation.Phone;
             existingLocation.PhotoUrl = updatedLocation.PhotoUrl;
             existingLocation.Remark = updatedLocation.Remark;
-            
+
             _locationRepository.Update(existingLocation);
             await _locationRepository.SaveChangesAsync();
             return existingLocation;

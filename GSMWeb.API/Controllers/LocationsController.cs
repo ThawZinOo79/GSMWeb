@@ -1,4 +1,6 @@
+using GSMWeb.API.DTOs;
 using GSMWeb.Core.Entities;
+using GSMWeb.Core.Helpers;
 using GSMWeb.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +21,19 @@ namespace GSMWeb.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllLocations()
+        public async Task<IActionResult> GetAllLocations(
+            [FromQuery] PagingParameters pagingParams, [FromQuery] string? searchTerm)
         {
-            var locations = await _locationService.GetAllLocationsAsync();
-            return Ok(locations);
+            var (locations, totalCount) = await _locationService.GetPaginatedLocationsAsync(pagingParams, searchTerm);
+
+            var pagedResult = new PagedResult<Location>(
+                locations.ToList(),
+                pagingParams.PageNumber,
+                pagingParams.PageSize,
+                totalCount
+            );
+
+            return Ok(pagedResult);
         }
 
         [HttpGet("{id}")]

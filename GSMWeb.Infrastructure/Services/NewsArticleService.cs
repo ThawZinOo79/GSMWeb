@@ -1,4 +1,5 @@
 using GSMWeb.Core.Entities;
+using GSMWeb.Core.Helpers;
 using GSMWeb.Core.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,9 +32,10 @@ namespace GSMWeb.Infrastructure.Services
             return true;
         }
 
-        public async Task<IEnumerable<NewsArticle>> GetAllPublishedArticlesAsync()
+        public async Task<(IEnumerable<NewsArticle> Articles, int TotalCount)> GetPaginatedPublishedArticlesAsync(
+            PagingParameters pagingParams, string? searchTerm)
         {
-            return await _newsRepository.GetAllPublishedAsync();
+            return await _newsRepository.GetPaginatedAndSearchedPublishedAsync(pagingParams, searchTerm);
         }
 
         public async Task<NewsArticle?> GetArticleByIdAsync(int id)
