@@ -14,6 +14,9 @@ namespace GSMWeb.Infrastructure.Data
         public DbSet<CompanyProfile> CompanyProfiles { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<PrivacyPolicy> PrivacyPolicies { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Product> Products { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,6 +55,18 @@ namespace GSMWeb.Infrastructure.Data
 
                 entity.Property(p => p.PolicyName5).HasMaxLength(500);
                 entity.Property(p => p.Description5).HasMaxLength(1000);
+            });
+
+            modelBuilder.Entity<ProductCategory>(entity =>
+            {
+                entity.Property(p => p.Name).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.Property(p => p.ProductName).HasMaxLength(255);
+                entity.Property(p => p.ProductDescription).HasMaxLength(1000);
+                entity.Property(p => p.Photo).HasMaxLength(500);
             });
         }
     }
